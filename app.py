@@ -1,40 +1,108 @@
-from cassandra.cluster import Cluster
 from flask import Flask, render_template, request, jsonify
 import json
 import requests
-import requests_cache
-import time
+# import requests_cache
+import pymysql
 
-cluster = Cluster(contact_points=['172.17.0.2'],port=9042)
-session = cluster.connect()
+
 app = Flask(__name__)
 
-@app.route('/')
-def hello():
-        name = request.args.get("name","World")
-        return('<h1>Hello, {}!</h1>'.format(name))
 
-total_data = []
-requests_cache.install_cache('koreanres_api_cache', backend='sqlite', expire_after=36000)
 
-target = {"type" : "korean", "location" : (51.507437, -0.127658), "radius" : 50000}
-urls = ["https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCEo4dxn6iRqv8w-uTuyhqVit7TW_g3kUA&type=restaurant&location={},{}&keyword={}&radius={}".format(target["location"][0],target["location"][1],target["type"],target["radius"])]
+# total_data = []
+# requests_cache.install_cache('koreanres_api_cache', backend='sqlite', expire_after=36000)
 
-@app.route('/korean_res', methods=['GET'])
-def koreanres():
-    resp = requests.get(urls[0])
-    if resp.ok:
-        return jsonify(resp.json())
-    else:
-        print(resp.reason)
+# target = {"type" : "korean", "location" : (51.507437, -0.127658), "radius" : 50000}
+urls = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCEo4dxn6iRqv8w-uTuyhqVit7TW_g3kUA&location={location}&radius={radius}&type=restaurant&keyword=korean"
 
-@app.route('/korean_res/<name>')
-def profile(name):
-    rows = session.execute( """Select * From korean_res.korean_res where name = '{}' ALLOW FILTERING""".format(name))
-    for korean_res in rows:
-        return('<h1>{} has {} of user&#39;s rating!</h1>'.format(name,korean_res.rate_total))
-    return('<h1>That korean restaurant does not exist!</h1>')
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+conn = pymysql.connect(host='database-1.crvfbd6sjy8i.us-east-1.rds.amazonaws.com', user='admin', password='123456789', db='API_test', charset='utf8')
+curs = conn.cursor()
 
+
+@app.route('/todolist/<id>', methods=['GET'])
+def getTodoList(id):
+    sql = "SELECT * FROM Todo_List WHERE id={id}".format(id=id)
+    curs.execute(sql)
+    todolist = curs.fetchone()
+    
+    response = {
+        
+    }
+    if todolist:
+        res = requests.get(urls.format(location=(str(todolist[3]) + "," + str(todolist[4])),radius=1000))
+        response = {
+            "id" : todolist[0],
+            "title": todolist[1],
+            "contents": todolist[2],
+            "lat": todolist[3],
+            "lng": todolist[4],
+            "location" : res.json()
+        }
+        print(res)
+    return jsonify(response)
+
+@app.route('/todolist', methods=['POST'])
+def createTodoList():
+    title = request.json.get("title")
+    contents = request.json.get("contents")
+    lat = request.json.get("lat")
+    lng = request.json.get("lng")
+    print(title, contents, lat, lng)
+    sql = "INSERT INTO Todo_List (title, contents, lat, lng) VALUES ('{title}', '{contents}' ,{lat} ,{lng})".format(
+        title=title,
+        contents=contents,
+        lat=lat,
+        lng=lng
+    )
+    
+    
+    curs.execute(sql)
+    conn.commit()
+    response = {
+        "suceess" : True
+    }
+    status_code = 201
+    return jsonify(response), 201
+
+@app.route('/todolist/<id>', methods=['PUT'])
+def updateTodoList(id):
+    title = request.json.get("title")
+    contents = request.json.get("contents")
+    lat = request.json.get("lat")
+    lng = request.json.get("lng")
+    print(title, contents, lat, lng)
+
+    sql = "UPDATE Todo_List SET title='{title}', contents='{contents}', lat={lat}, lng={lng} WHERE id={id}".format(
+        id = id,
+        title = title,
+        contents = contents,
+        lat = lat,
+        lng = lat,
+    )
+    curs.execute(sql)
+    conn.commit()
+
+    response = {
+        "suceess" : True
+    }
+    
+    status_code = 201
+    return jsonify(response), 200
+
+@app.route('/todolist/<id>', methods=['DELETE'])
+def deleteTodoList(id):
+    sql = "DELETE FROM Todo_List WHERE id={id}".format(
+        id=id,
+    )
+    curs.execute(sql)
+    conn.commit()
+    response = {
+        "suceess" : True
+    }
+    
+    status_code = 201
+    return jsonify(response), 200
+
+
+app.run(host='0.0.0.0', port=80)
