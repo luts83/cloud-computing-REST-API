@@ -1,7 +1,7 @@
 # Cloud computing REST API
-mini_project
+Mini_project
 ```shell
-AWS EC2 ubuntu
+AWS EC2 for ubuntu
 AWS RDS for mysql
 Docker
 Nginx
@@ -28,7 +28,7 @@ sudo apt-get install nginx
 sudo service nginx start
 ```
 ### nginx.conf
-Install Nginx and apply the following contents to use the load balancing ans ssl.
+Install nginx and apply the following contents to use the load balancing ans ssl.
 ```shell
 upstream myserver {
         server 54.172.123.183:8000;
