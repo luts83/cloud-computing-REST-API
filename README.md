@@ -71,11 +71,11 @@ curl -XGET --insecure https://54.172.123.183/todolist/:id
 ```
 POST /todolist
 ```shell
-curl -XPOST -H "Content-Type: application/json" -d '{ "title":"test_title", "contents":"test_contents", "lat":51.498538,  "lng":-0.026507 }' --insecure ht$
+curl -XPOST -H "Content-Type: application/json" -d '{ "title":"test_title", "contents":"test_contents", "lat":51.498538,  "lng":-0.026507 }' --insecure https://54.172.123.183/todolist
 ```
 PUT /todolist/:id
 ```shell
-curl -XPUT -H "Content-Type: application/json" -d '{ "title":"updated_test_title", "contents":"updated_test_contents", "lat":51.498538,  "lng":-0.026507 }$
+curl -XPUT -H "Content-Type: application/json" -d '{ "title":"updated_test_title", "contents":"updated_test_contents", "lat":51.498538,  "lng":-0.026507 }' --insecure https://54.172.123.183/todolist/:id
 ```
 DELETE /todolist/:id
 ```shell
