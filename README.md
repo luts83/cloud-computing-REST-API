@@ -57,10 +57,10 @@ server {
 ```
 ### API
 ```shell
-1. By sending lines of longitude and latitude using the Google Place API, it's used the API that sends the Korean restaurant within 100m radius of the loc$
-2. By default, 1-10 of data has been stored in the AWS RDS and results can be checked up to 1-10 through GET method, and new data can be posted from 11 th$
-3. Existing information can be updated by PUT method.
-4. It is possible to delete existing information by DELETE method.
+1. By sending lines of longitude and latitude using the Google Place API, it's used the API that sends the Korean restaurant within 100m radius of the location.
+2. By default, 1-10 of data has been stored in the AWS RDS currently and results can be checked up to 1-10 through GET method, and new data can be posted from 11th data by using POST method.
+3. Existing data can be updated by PUT method.
+4. It is possible to delete existing data by DELETE method.
 * id is the number for todolist(it's applicable for autoincrement)
 ```
 Base url = https://54.172.123.183
