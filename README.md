@@ -57,11 +57,26 @@ server {
 ```
 ### API
 ```shell
-1. By sending lines of longitude and latitude using the Google Place API, it's used the API that sends the Korean restaurant within 100m radius of the location.
-2. By default, 1-10 of data has been stored in the AWS RDS currently and results can be checked up to 1-10 through GET method, and new data can be posted from 11th data by using POST method.
-3. Existing data can be updated by PUT method.
-4. It is possible to delete existing data by DELETE method.
+- By sending lines of longitude and latitude using the Google Place API, it's used the API that sends the Korean restaurant within 100m radius of the location.
+- By default, 1-10 of data has been stored in the AWS RDS currently and results can be checked up to 1-10 through GET method, and new data can be posted from 11th data by using POST method.
+- Existing data can be updated by PUT method.
+- It is possible to delete existing data by DELETE method.
 * id is the number for todolist(it's applicable for autoincrement)
+```
+### RDS for SQL
+Contents of existing databases stored in AWS RDS for SQL
+```shell
+ID,title,contents,lat,lng,created_at
+'1','Queen Mary University of London updated','updated','51.524048','-0.040353','2020-04-17 10:49:57'
+'2','Canary Wharf','Korean restaurant nearby','51.503425','-0.018629','2020-04-17 10:52:10'
+'3','The National Gallery','Korean restaurant nearby','51.508975','-0.128449','2020-04-17 10:53:24'
+'4','Big Ben','Korean restaurant nearby','51.500691','-0.124613','2020-04-17 10:54:19'
+'5','The British Museum','Korean restaurant nearby','51.519509','-0.126645','2020-04-17 10:54:59'
+'6','Trafalgar Square','Korean restaurant nearby','51.507979','-0.127987','2020-04-17 10:56:42'
+'7','St. Paul Cathedral','Korean restaurant nearby','51.513323','-0.098276','2020-04-17 10:58:02'
+'8','Hyde Park','Korean restaurant nearby','51.50814','-0.16659','2020-04-17 10:59:15'
+'9','Buckingham Palace','Korean restaurant nearby','51.501683','-0.140952','2020-04-17 10:59:53'
+'10','Covent Garden','Korean restaurant nearby','51.511461','-0.123785','2020-04-17 11:01:07'
 ```
 Base url = https://54.172.123.183
 
