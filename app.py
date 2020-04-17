@@ -1,18 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 import json
 import requests
-# import requests_cache
 import pymysql
 
 
 app = Flask(__name__)
-
-
-
-# total_data = []
-# requests_cache.install_cache('koreanres_api_cache', backend='sqlite', expire_after=36000)
-
-# target = {"type" : "korean", "location" : (51.507437, -0.127658), "radius" : 50000}
 urls = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCEo4dxn6iRqv8w-uTuyhqVit7TW_g3kUA&location={location}&radius={radius}&type=restaurant&keyword=korean"
 
 
@@ -78,7 +70,7 @@ def updateTodoList(id):
         title = title,
         contents = contents,
         lat = lat,
-        lng = lat,
+        lng = lng,
     )
     curs.execute(sql)
     conn.commit()
