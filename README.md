@@ -28,7 +28,7 @@ sudo apt-get install nginx
 sudo service nginx start
 ```
 ### nginx.conf
-Install Nginx and apply the following contents to use the load balancing.
+Install Nginx and apply the following contents to use the load balancing ans ssl.
 ```shell
 upstream myserver {
         server 54.172.123.183:8000;
