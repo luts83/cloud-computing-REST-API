@@ -28,6 +28,9 @@ sudo apt-get install nginx
 sudo service nginx start
 ```
 ### nginx.conf
+Please be informed that the nginx with ssl and load balancing function has been applied to my AWS EC2 server. So, kindly see the below https links (eg. curl -XGET --insecure https://54.172.123.183/todolist/:1) to check it.
+Otherwise, if the docker image is built in your computer or virtual server locally, this can be applied by following the steps described below:
+
 Install nginx and apply the following contents to use the load balancing ans ssl.
 ```shell
 upstream myserver {
