@@ -28,29 +28,29 @@ sudo apt-get install nginx
 sudo service nginx start
 ```
 ### nginx.conf
-Please be informed that the nginx with ssl and load balancing function has been applied to my AWS EC2 server. So, kindly see the below https links (eg. curl -XGET --insecure https://54.172.123.183/todolist/:1) to check it.
+Please be informed that the nginx with ssl and load balancing function has been applied to my AWS EC2 server. So, kindly see the below https links (eg. curl -XGET --insecure https://52.90.110.215/todolist/:1) to check it.
 Otherwise, if the docker image is built in your computer or virtual server locally, this can be applied by following the steps described below:
 
 Install nginx and apply the following contents to use the load balancing ans ssl.
 ```shell
 upstream myserver {
-        server 54.172.123.183:8000;
-        server 54.172.123.183:8001;
+        server 52.90.110.215:8000;
+        server 52.90.110.215:8001;
 }
 
 server {
         listen       80;
-        server_name  54.172.123.183;
+        server_name  52.90.110.215;
         rewrite ^ https://$server_name$request_uri? permanent;
 }
 
 server {
         listen  443 ssl;
         listen [::]:443 ssl;
-        server_name 54.172.123.183;
+        server_name 52.90.110.215;
 
-        ssl_certificate /home/ubuntu/mini_project/labyu.crt;
-        ssl_certificate_key /home/ubuntu/mini_project/labyu.key;
+        ssl_certificate /home/ubuntu/mini_project/luts.crt;
+        ssl_certificate_key /home/ubuntu/mini_project/luts.key;
         ssl on;
 
         location / {
@@ -81,21 +81,21 @@ ID,title,contents,lat,lng,created_at
 '9','Buckingham Palace','Korean restaurant nearby','51.501683','-0.140952','2020-04-17 10:59:53'
 '10','Covent Garden','Korean restaurant nearby','51.511461','-0.123785','2020-04-17 11:01:07'
 ```
-Base url = https://54.172.123.183
+Base url = https://52.90.110.215
 
 GET /todolist/:id
 ```shell
-curl -XGET --insecure https://54.172.123.183/todolist/:id
+curl -XGET --insecure https://52.90.110.215/todolist/:id
 ```
 POST /todolist
 ```shell
-curl -XPOST -H "Content-Type: application/json" -d '{ "title":"test_title", "contents":"test_contents", "lat":51.498538,  "lng":-0.026507 }' --insecure https://54.172.123.183/todolist
+curl -XPOST -H "Content-Type: application/json" -d '{ "title":"test_title", "contents":"test_contents", "lat":51.498538,  "lng":-0.026507 }' --insecure https://52.90.110.215/todolist
 ```
 PUT /todolist/:id
 ```shell
-curl -XPUT -H "Content-Type: application/json" -d '{ "title":"updated_test_title", "contents":"updated_test_contents", "lat":51.498538,  "lng":-0.026507 }' --insecure https://54.172.123.183/todolist/:id
+curl -XPUT -H "Content-Type: application/json" -d '{ "title":"updated_test_title", "contents":"updated_test_contents", "lat":51.498538,  "lng":-0.026507 }' --insecure https://52.90.110.215/todolist/:id
 ```
 DELETE /todolist/:id
 ```shell
-curl -XDELETE --insecure https://54.172.123.183/todolist/:id
+curl -XDELETE --insecure https://52.90.110.215/todolist/:id
 ```
