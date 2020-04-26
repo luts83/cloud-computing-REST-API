@@ -5,7 +5,7 @@ import pymysql
 
 
 app = Flask(__name__)
-urls = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCEo4dxn6iRqv8w-uTuyhqVit7TW_g3kUA&location={location}&radius={radius}&type=restaurant&keyword=korean"
+urls = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=YOUR GOOGLE PLACE API KEY&location={location}&radius={radius}&type=restaurant&keyword=korean"
 
 
 conn = pymysql.connect(host='database-1.crvfbd6sjy8i.us-east-1.rds.amazonaws.com', user='admin', password='123456789', db='API_test', charset='utf8')
