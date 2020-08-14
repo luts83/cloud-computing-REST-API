@@ -1,4 +1,4 @@
-# Cloud computing REST API
+# Cloud computing | REST API | Docker
 Mini_project
 ```shell
 AWS EC2 for ubuntu
